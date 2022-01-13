@@ -70,18 +70,34 @@ public class CalculateManager : MonoBehaviour
             }
 
             PieGraph.instance.MakeGraph(sumInvested, currentSumm - sumInvested); 
+            MoreInfo.instance.CreateMoreInfo(sumInvested, currentSumm - sumInvested, percentGrowth); 
 
-            string MoneyPreArray = currentSumm.ToString("N", CultureInfo.CreateSpecificCulture("fr-CA"));
-            int MoneyArray = MoneyPreArray.IndexOf(",");
-            if (MoneyArray > 0)
-                MoneyPreArray = MoneyPreArray.Substring(0, MoneyArray);
-
-            _resaultField.text = MoneyPreArray;
+            _resaultField.text = CorrectForm(currentSumm);
 
             foreach (var tab in TabGroup.instance.tabs)
             {
                 tab.SetEnebled(true);
             }
         }
+    }
+
+    public string CorrectForm(float currentSumm)
+    {
+        string MoneyPreArray = currentSumm.ToString("N", CultureInfo.CreateSpecificCulture("fr-CA"));
+        int MoneyArray = MoneyPreArray.IndexOf(",");
+        if (MoneyArray > 0)
+            MoneyPreArray = MoneyPreArray.Substring(0, MoneyArray);
+
+        return MoneyPreArray;
+    }
+    
+    public string CorrectForm(double currentSumm)
+    {
+        string MoneyPreArray = currentSumm.ToString("N", CultureInfo.CreateSpecificCulture("fr-CA"));
+        int MoneyArray = MoneyPreArray.IndexOf(",");
+        if (MoneyArray > 0)
+            MoneyPreArray = MoneyPreArray.Substring(0, MoneyArray);
+
+        return MoneyPreArray;
     }
 }
